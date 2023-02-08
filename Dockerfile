@@ -12,6 +12,7 @@ RUN ./configure && \
 
 
 FROM finchsec/kali:base
+LABEL org.opencontainers.image.authors="thomas@finchsec.com"
 # hadolint ignore=DL3005,DL3008
 RUN apt-get update && \
     apt-get dist-upgrade -y && \
