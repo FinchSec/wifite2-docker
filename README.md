@@ -1,4 +1,4 @@
-# WiFite 2
+# WiFite 2 container
 
 Docker for https://github.com/kimocoder/wifite2 using Kali as a base. Rebuilt daily.
 
