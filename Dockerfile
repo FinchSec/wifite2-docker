@@ -1,5 +1,3 @@
-FROM finchsec/reaver as reaver
-
 FROM finchsec/kali:base
 LABEL org.opencontainers.image.authors="thomas@finchsec.com"
 # hadolint ignore=DL3005,DL3008
@@ -20,7 +18,7 @@ RUN apt-get update && \
         rm -rf wifite2 && \
         git clone https://github.com/vanhoefm/ath_masker /root/ath_masker && \
         apt-get purge python3-pip git debconf-utils adduser -y
-COPY --from=reaver /usr/local/sbin/reaver /usr/local/sbin/reaver
+COPY --from=finchsec/reaver:latest /usr/local/sbin/reaver /usr/local/sbin/reaver
 # Wash is just a symlink to reaver
 RUN ln -s /usr/local/sbin/reaver /usr/local/sbin/wash
 CMD [ "/usr/sbin/wifite" ]
