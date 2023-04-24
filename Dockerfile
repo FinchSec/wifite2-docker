@@ -20,7 +20,4 @@ RUN apt-get update && \
         apt-get purge python3-pip git debconf-utils adduser -y && \
         apt-get autoclean && \
 		rm -rf /var/lib/dpkg/status-old /etc/dpkg/dpkg.cfg.d/force-unsafe-io /var/lib/apt/lists/*
-COPY --from=finchsec/reaver:latest /usr/local/sbin/reaver /usr/local/sbin/reaver
-# Wash is just a symlink to reaver
-RUN ln -s /usr/local/sbin/reaver /usr/local/sbin/wash
 CMD [ "/usr/sbin/wifite" ]
