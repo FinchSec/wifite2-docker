@@ -7,17 +7,26 @@ RUN apt-get update && \
 		echo "wireshark-common	wireshark-common/install-setuid	boolean boolean false" | debconf-set-selections && \
 		DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends tshark && \
         apt-get install -y --no-install-recommends \
-            git python3-pip aircrack-ng iw iproute2 libpcap0.8 kmod macchanger \
+            ca-certificates unzip wget aircrack-ng iw iproute2 libpcap0.8 kmod macchanger \
             reaver bully john cowpatty hcxdumptool hcxtools pixiewps rfkill pciutils usbutils \
             $([ "$(uname -m)" != "armv7l" ] && echo hashcat-utils hashcat pocl-opencl-icd) \
 			$([ "$(uname -m)" = "x86_64" ] && echo intel-opencl-icd) && \
-        git clone https://github.com/kimocoder/wifite2 /wifite2 && \
-        git clone https://github.com/vanhoefm/ath_masker /root/ath_masker && \
-        cd /wifite2 && \
-        grep -v setuptools requirements.txt > reqs.txt && mv reqs.txt requirements.txt && \
-        pip3 install --no-cache-dir -r requirements.txt  && \
-        python3 setup.py install && \
-        apt-get purge python3-pip git debconf-utils adduser -y && \
+        wget -nv "https://github.com/kimocoder/wifite2/archive/refs/heads/master.zip" -O /wifite2.zip && \
+        wget -nv "https://github.com/vanhoefm/ath_masker/archive/refs/heads/master.zip" -O /root/ath_masker.zip && \
+        unzip -d / /wifite2.zip && rm /wifite2.zip && mv /wifite2-master /wifite2 && \
+        unzip -d /root/ /root/ath_masker.zip && rm /root/ath_masker.zip && mv /root/ath_masker-master /root/ath_masker && \
+        grep -v setuptools /wifite2/requirements.txt > reqs.txt && mv reqs.txt /wifite2/requirements.txt && \
+        apt-get purge unzip debconf-utils adduser ca-certificates -y && \
+        apt-get autoclean && \
+        apt-get autoremove -y && \
+		rm -rf /var/lib/dpkg/status-old /var/lib/apt/lists/*
+WORKDIR /wifite2
+RUN apt-get update && \
+        apt-get install python3-pip ca-certificates -y --no-install-recommends && \
+        pip3 install --no-cache-dir -r /wifite2/requirements.txt  && \
+        python3 /wifite2/setup.py install && \
+        apt-get purge python3-pip ca-certificates -y && \
+        apt-get install python3-pkg-resources python3-setuptools -y --no-install-recommends && \
         apt-get autoclean && \
         apt-get autoremove -y && \
 		rm -rf /var/lib/dpkg/status-old /var/lib/apt/lists/*
