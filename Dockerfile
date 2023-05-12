@@ -19,5 +19,5 @@ RUN apt-get update && \
         python3 setup.py install && \
         apt-get purge python3-pip git debconf-utils adduser -y && \
         apt-get autoclean && \
-		rm -rf /var/lib/dpkg/status-old /etc/dpkg/dpkg.cfg.d/force-unsafe-io /var/lib/apt/lists/*
+		rm -rf /var/lib/dpkg/status-old /var/lib/apt/lists/*
 CMD [ "/usr/sbin/wifite" ]
