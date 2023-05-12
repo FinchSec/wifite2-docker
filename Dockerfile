@@ -7,7 +7,7 @@ RUN apt-get update && \
 		echo "wireshark-common	wireshark-common/install-setuid	boolean boolean false" | debconf-set-selections && \
 		DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends tshark && \
         apt-get install -y --no-install-recommends \
-            git python3 python3-pip aircrack-ng iw iproute2 net-tools libpcap0.8 kmod macchanger \
+            git python3-pip aircrack-ng iw iproute2 libpcap0.8 kmod macchanger \
             reaver bully john cowpatty hcxdumptool hcxtools pixiewps rfkill pciutils usbutils \
             $([ "$(uname -m)" != "armv7l" ] && echo hashcat-utils hashcat pocl-opencl-icd) \
 			$([ "$(uname -m)" = "x86_64" ] && echo intel-opencl-icd) && \
