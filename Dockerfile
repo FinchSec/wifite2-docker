@@ -1,6 +1,6 @@
 FROM finchsec/kali:base
 LABEL org.opencontainers.image.authors="thomas@finchsec.com"
-# hadolint ignore=DL3005,DL3008
+# hadolint ignore=DL3005,DL3008,DL4006,SC2046
 RUN apt-get update && \
     apt-get dist-upgrade -y && \
         apt-get install debconf-utils adduser -y --no-install-recommends && \
@@ -21,6 +21,7 @@ RUN apt-get update && \
         apt-get autoremove -y && \
 		rm -rf /var/lib/dpkg/status-old /var/lib/apt/lists/*
 WORKDIR /wifite2
+# hadolint ignore=DL3008
 RUN apt-get update && \
         apt-get install python3-pip ca-certificates -y --no-install-recommends && \
         pip3 install --no-cache-dir -r /wifite2/requirements.txt  && \
