@@ -12,11 +12,11 @@ RUN apt-get update && \
             $([ "$(uname -m)" != "armv7l" ] && echo hashcat-utils hashcat pocl-opencl-icd) \
 			$([ "$(uname -m)" = "x86_64" ] && echo intel-opencl-icd) && \
         git clone https://github.com/kimocoder/wifite2 /wifite2 && \
-        cd /wifite2 && \
-        python3 setup.py install && \
-        cd .. && \
-        rm -rf wifite2 && \
         git clone https://github.com/vanhoefm/ath_masker /root/ath_masker && \
+        cd /wifite2 && \
+        grep -v setuptools requirements.txt > reqs.txt && mv reqs.txt requirements.txt && \
+        pip3 install --no-cache-dir -r requirements.txt  && \
+        python3 setup.py install && \
         apt-get purge python3-pip git debconf-utils adduser -y && \
         apt-get autoclean && \
 		rm -rf /var/lib/dpkg/status-old /etc/dpkg/dpkg.cfg.d/force-unsafe-io /var/lib/apt/lists/*
