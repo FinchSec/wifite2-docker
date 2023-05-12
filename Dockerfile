@@ -3,7 +3,7 @@ LABEL org.opencontainers.image.authors="thomas@finchsec.com"
 # hadolint ignore=DL3005,DL3008
 RUN apt-get update && \
     apt-get dist-upgrade -y && \
-        apt-get install debconf-utils adduser -y && \
+        apt-get install debconf-utils adduser -y --no-install-recommends && \
 		echo "wireshark-common	wireshark-common/install-setuid	boolean boolean false" | debconf-set-selections && \
 		DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends tshark && \
         apt-get install -y --no-install-recommends \
