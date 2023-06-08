@@ -16,7 +16,7 @@ RUN apt-get update && \
         unzip -d / /wifite2.zip && rm /wifite2.zip && mv /wifite2-master /wifite2 && \
         unzip -d /root/ /root/ath_masker.zip && rm /root/ath_masker.zip && mv /root/ath_masker-master /root/ath_masker && \
         grep -v setuptools /wifite2/requirements.txt > reqs.txt && mv reqs.txt /wifite2/requirements.txt && \
-        apt-get purge unzip debconf-utils adduser ca-certificates -y && \
+        apt-get purge unzip debconf-utils -y && \
         apt-get autoclean && \
         apt-get autoremove -y && \
 		rm -rf /var/lib/dpkg/status-old /var/lib/apt/lists/*
