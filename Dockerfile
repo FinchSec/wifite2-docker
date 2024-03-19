@@ -23,11 +23,11 @@ RUN apt-get update && \
 WORKDIR /wifite2
 # hadolint ignore=DL3008
 RUN apt-get update && \
-        apt-get install python3-pip ca-certificates -y --no-install-recommends && \
+        apt-get install python3-pip python3-setuptools ca-certificates -y --no-install-recommends && \
         pip3 install --no-cache-dir -r /wifite2/requirements.txt  && \
         python3 /wifite2/setup.py install && \
         apt-get purge python3-pip ca-certificates -y && \
-        apt-get install python3-pkg-resources python3-setuptools -y --no-install-recommends && \
+        apt-get install python3-pkg-resources -y --no-install-recommends && \
         apt-get autoclean && \
         apt-get autoremove -y && \
 		rm -rf /var/lib/dpkg/status-old /var/lib/apt/lists/*
